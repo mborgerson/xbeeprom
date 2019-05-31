@@ -136,6 +136,7 @@ public:
 
 
 	//Structure that holds contents of 256 byte EEPROM image..
+	#pragma pack(1)
 	struct EEPROMDATA
 	{
 	   BYTE		HMAC_SHA1_Hash[20];			// 0x00 - 0x13 HMAC_SHA1 Hash
@@ -189,6 +190,7 @@ public:
 
 	   BYTE		UNKNOWN6[64];				// 0xC0 - 0xFF Unknown Codes / History ?
 	};
+	#pragma pack()
 	typedef EEPROMDATA* LPEEPROMDATA;
 
 	XKEEPROM(void);
