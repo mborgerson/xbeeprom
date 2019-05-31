@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
 	fclose(fd);
 
 	XKEEPROM eeprom(&eeprom_data, TRUE);
-	// eeprom.Decrypt();
+	BOOL result = eeprom.Decrypt();
+	if (!result) printf("Error: failed to decrypt!\n");
 
 	char buf[64];
 	DWORD len;
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
 	printf("Setting MAC address to %s\n", new_mac);
 	eeprom.SetMACAddressString(new_mac);
 
-	BOOL result = eeprom.EncryptAndCalculateCRC();
+	result = eeprom.EncryptAndCalculateCRC();
 	eeprom.GetEEPROMData(&eeprom_data);
 
 	fd = fopen(eeprom_path, "wb");
