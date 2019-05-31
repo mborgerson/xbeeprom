@@ -72,7 +72,7 @@ Reason: Update for XBOX 1.6 Eeprom
 */
 
 
-#include "xksha1.h"
+#include "XKSHA1.h"
 
 XKSHA1::XKSHA1(void)
 {

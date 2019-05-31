@@ -78,7 +78,8 @@ Reason: Prepared for Public Release
 	#include <xtl.h>
 	#include <stdlib.h>
 #else
-	#error ERR: Have to Define _WINDOWS or _XBOX !!
+	// #error ERR: Have to Define _WINDOWS or _XBOX !!
+	#include "fixme.h"
 #endif
 
 #define SHA1HashSize 20

@@ -66,7 +66,7 @@ Reason: Prepared for Public Release
 
 */
 
-#include "xkeeprom.h"
+#include "XKEEPROM.h"
 
 
 
@@ -277,7 +277,7 @@ BOOL XKEEPROM::WriteToCFGFile(LPCSTR FileName)
 	if (hf !=  INVALID_HANDLE_VALUE)
 	{
 		//Write CFG File Header..
-		LPSTR fHeaderInfo = "#Please note ALL fields and Values are Case Sensitive !!\r\n\r\n[EEPROMDATA]\r\n";
+		const char *fHeaderInfo = "#Please note ALL fields and Values are Case Sensitive !!\r\n\r\n[EEPROMDATA]\r\n";
 		WriteFile(hf, fHeaderInfo, (DWORD)strlen(fHeaderInfo), &dwBytesWrote, NULL);
 
 		//Write Serial Number

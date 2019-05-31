@@ -54,7 +54,8 @@ Reason: Prepared for Public Release
 	#pragma message ("Compiling for XBOX: " __FILE__)
 	#include <xtl.h>
 #else
-	#error ERRR: Have to Define _WINDOWS or _XBOX !!
+	// #error ERRR: Have to Define _WINDOWS or _XBOX !!
+	#include "fixme.h"
 #endif
 
 

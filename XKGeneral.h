@@ -55,7 +55,8 @@ Reason: Prepared for Public Release
 	#pragma message ("Compiling for XBOX: " __FILE__)
 	#include <xtl.h>
 #else
-	#error ERR: Have to Define _WINDOWS or _XBOX !!
+	// #error ERR: Have to Define _WINDOWS or _XBOX !!
+	#include "fixme.h"
 #endif
 
 #ifndef FILENAME_MAX
@@ -79,8 +80,8 @@ public:
 	static DWORD HexStrToDWORD(LPBYTE StringData, LPDWORD pBufferLen, BOOL RemoveInvalid, BOOL FlipByteOrder);
 	
 	//Read items and values from a .INI file..  
-	static BOOL	ReadINIFileItem(LPCSTR INIFileName, LPCSTR INISection, LPCSTR INIItem, LPSTR ItemValue, LPDWORD ValueLen);
-	static BOOL	WriteINIFileItem(LPCSTR INIFileName, LPCSTR INISection, LPCSTR INIItem, LPSTR ItemValue);
+	static BOOL	ReadINIFileItem(const char *INIFileName, const char *INISection, const char *INIItem, char *ItemValue, LPDWORD ValueLen);
+	static BOOL	WriteINIFileItem(const char *INIFileName, const char *INISection, const char *INIItem, const char *ItemValue);
 
 	//Strip Quotes from a string..  
 	static void StripLeftSpaces(LPSTR sString);

@@ -53,7 +53,7 @@ Reason: Prepared for Public Release
 */
 
 #include <stdio.h>
-#include "xkgeneral.h"
+#include "XKGeneral.h"
 
 XKGeneral::XKGeneral(void)
 {
@@ -192,7 +192,7 @@ void XKGeneral::HexStrToBytes(LPBYTE StringData, LPDWORD pBufferLen, BOOL Remove
 // [SECTION_MAIN]
 // Value1 = "My Value"
 //
-BOOL XKGeneral::ReadINIFileItem(LPCSTR INIFileName, LPCSTR INISection, LPCSTR INIItem, LPSTR ItemValue, LPDWORD ValueLen)
+BOOL XKGeneral::ReadINIFileItem(const char *INIFileName, const char *INISection, const char *INIItem, char *ItemValue, LPDWORD ValueLen)
 {
 	BOOL retVal = FALSE;
 	LONG retSize = 0;
@@ -296,7 +296,7 @@ BOOL XKGeneral::ReadINIFileItem(LPCSTR INIFileName, LPCSTR INISection, LPCSTR IN
 // [SECTION_MAIN]
 // Value1 = "My Value"
 //
-BOOL XKGeneral::WriteINIFileItem(LPCSTR INIFileName,LPCSTR INISection,LPCSTR INIItem,LPSTR ItemValue)
+BOOL XKGeneral::WriteINIFileItem(const char *INIFileName,const char *INISection,const char *INIItem,const char *ItemValue)
 {
 	char ctINIFileName[MAX_PATH+1];
 	char ctINISection[MAX_PATH+1];
@@ -341,7 +341,7 @@ BOOL XKGeneral::WriteINIFileItem(LPCSTR INIFileName,LPCSTR INISection,LPCSTR INI
 				{
 					if (ctINILine[0]=='['&&ctINILine[strlen(ctINILine)-1]==']')
 					{
-						if (strcmp(ctINILine,ctSearchINISection)==NULL)
+						if (strcmp(ctINILine,ctSearchINISection)==0)
 						{
 							bInINISection=true;
 							if (!bINISectionExist) bINISectionExist=true;
@@ -350,7 +350,7 @@ BOOL XKGeneral::WriteINIFileItem(LPCSTR INIFileName,LPCSTR INISection,LPCSTR INI
 					}
 					else if (bInINISection)
 					{
-						if (strncmp(ctINILine,ctSearchINIItem,strlen(ctSearchINIItem))==NULL)
+						if (strncmp(ctINILine,ctSearchINIItem,strlen(ctSearchINIItem))==0)
 						{
 							sprintf(ctINILine,"%s%s",ctSearchINIItem,ctItemValue);
 							bModified=true;
@@ -391,7 +391,7 @@ BOOL XKGeneral::WriteINIFileItem(LPCSTR INIFileName,LPCSTR INISection,LPCSTR INI
 						{
 							if (ctINILine[0]=='['&&ctINILine[strlen(ctINILine)-1]==']')
 							{
-								if (strcmp(ctINILine,ctSearchINISection)==NULL) bInINISection=true;
+								if (strcmp(ctINILine,ctSearchINISection)==0) bInINISection=true;
 							}
 						}
 

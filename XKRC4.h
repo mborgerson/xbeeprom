@@ -70,7 +70,8 @@ Reason: Prepared for Public Release
 	#pragma message ("Compiling for XBOX: " __FILE__)
 	#include <xtl.h>
 #else
-	#error ERR: Have to Define _WINDOWS or _XBOX !!
+	// #error ERR: Have to Define _WINDOWS or _XBOX !!
+	#include "fixme.h"
 #endif
 
 class XKRC4

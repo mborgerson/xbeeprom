@@ -75,7 +75,8 @@ Reason: Prepared for Public Release
 	#include "XKExports.h"
 	#include "XKUtils.h"
 #else
-	#error ERR: Have to Define _WINDOWS or _XBOX !!
+	// #error ERR: Have to Define _WINDOWS or _XBOX !!
+	#include "fixme.h"
 #endif
 
 #include "XKGeneral.h"
