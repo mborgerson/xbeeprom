@@ -942,13 +942,13 @@ BOOL XKEEPROM::IsEncrypted()
 void XKEEPROM::CalculateChecksum2()
 {
 	//Calculate CRC for Serial, Mac, OnlineKey, video region
-	XKCRC::QuickCRC(m_EEPROMData.Checksum2, m_EEPROMData.SerialNumber, 0x28);
+	XKCRC::QuickCRC(m_EEPROMData.Checksum2, m_EEPROMData.SerialNumber, 0x2C);
 }
 
 //Calculate Checksum3
 void XKEEPROM::CalculateChecksum3()
 {
 	//calculate CRC's for time zones, time standards, language, dvd region etc.
-	XKCRC::QuickCRC(m_EEPROMData.Checksum3, m_EEPROMData.TimeZoneBias, 0x60);
+	XKCRC::QuickCRC(m_EEPROMData.Checksum3, m_EEPROMData.TimeZoneBias, 0x5C);
 }
 
