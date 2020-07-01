@@ -1,51 +1,13 @@
 /*
-**********************************
-**********************************
-**      BROUGHT TO YOU BY:		**
-**********************************
-**********************************
-**								**
-**		  [TEAM ASSEMBLY]		**
-**								**
-**		www.team-assembly.com	**
-**								**
-******************************************************************************************************
-* This is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-******************************************************************************************************
+Copyright 2020 Mike Davis
 
-********************************************************************************************************
-**	     XKCRC.CPP - General CRC Class' Implementation
-********************************************************************************************************
-**
-**	Containss functions to do a simple CRC check on a block of data..  
-**	might be more ways of elegantly doing this, but for now this has to work...
-**
-********************************************************************************************************
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-UPDATE LOG:
---------------------------------------------------------------------------------------------------------
-Date: 02/18/2003
-By: UNDEAD [team-assembly]
-Reason: Prepared 0.2 for Public Release
---------------------------------------------------------------------------------------------------------
-Date: 01/06/2003
-By: UNDEAD [team-assembly]
-Reason: Prepared for Public Release
---------------------------------------------------------------------------------------------------------
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #include "XKCRC.h"
 
 XKCRC::XKCRC(void)
@@ -56,34 +18,18 @@ XKCRC::~XKCRC(void)
 {
 }
 
-void XKCRC::QuickCRC(UCHAR* CRCVAL, UCHAR* inData, DWORD  dataLen)
+void XKCRC::QuickCRC(UCHAR* CRCVAL, UCHAR* inData, DWORD dataLen)
 {
+	uint32_t high = 0, low = 0;
 
-	LPBYTE CRC_Data = new BYTE[dataLen+4];
-	ZeroMemory(CRC_Data, dataLen+4);
-	memcpy(CRC_Data + 0x01 , inData, dataLen-1); //We Circle shift the whole bunch 1 byte to the right
-	memcpy(CRC_Data, inData + dataLen-1, 0x01); //We Circle shift the whole bunch 1 byte to the right
-
-    
-	BYTE CRCVALUE[4];
-	ZeroMemory(CRCVALUE,4);
-
-	for (int CRCPos=0; CRCPos<4; CRCPos++)
+	for (uint32_t i = 0; i < dataLen / sizeof(uint32_t); i++)
 	{
-		WORD CRCPosVal = 0xFFFF;
-	
-		for (DWORD l=CRCPos; l<dataLen; l+=4)
-		{
-			LPWORD tmpWrd = (LPWORD)(&CRC_Data[l]);
-			WORD ival = *tmpWrd;
-			CRCPosVal = CRCPosVal - ival;
-		}
+		uint32_t val = ((uint32_t*)inData)[i];
+		uint64_t sum = ((uint64_t)high << 32) | low;
 
-		CRCPosVal &= 0xFF00;
-		CRCVALUE[CRCPos] = (BYTE) (CRCPosVal >> 8);
+		high = (uint32_t)((sum + val) >> 32);
+		low += val;
 	}
 
-	memcpy(CRCVAL, CRCVALUE, 4);
-	delete[] CRC_Data;
-
+	*(uint32_t*)CRCVAL = ~(high + low);
 }
